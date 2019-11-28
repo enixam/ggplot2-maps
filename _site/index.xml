@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+  <channel>
+    <title>R Visualization Tips</title>
+    <link>https://bookdown.org/Maxine/ggplot2-maps/</link>
+    <atom:link href="https://bookdown.org/Maxine/ggplot2-maps/index.xml" rel="self" type="application/rss+xml"/>
+    <description>A collection of visualization tips in R, with a focus on ggplot2 and creating mpas
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>周二, 26 11月 2019 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Using scales package to modify ggplot2 scale</title>
+      <dc:creator>Qiushi Yan</dc:creator>
+      <link>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</link>
+      <description>The scales packages provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes.</description>
+      <guid>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</guid>
+      <pubDate>周二, 26 11月 2019 00:00:00 +0000</pubDate>
+      <media:content url="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+  </channel>
+</rss>

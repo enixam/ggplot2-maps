@@ -1,0 +1,21 @@
+[
+  {
+    "path": "posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/",
+    "title": "Using scales package to modify ggplot2 scale",
+    "description": "The scales packages provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes.",
+    "author": [
+      {
+        "name": "Qiushi Yan",
+        "url": "https://qiushi.netlify.com"
+      }
+    ],
+    "date": "2019-11-27",
+    "categories": [
+      "scales"
+    ],
+    "preview": "posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/distill-preview.png",
+    "last_modified": "2019-11-28T10:52:41+08:00",
+    "preview_width": 1248,
+    "preview_height": 768
+  }
+]

@@ -1,0 +1,30 @@
+---
+title: "Using scales package to modify ggplot2 scale"
+description: |
+  The scales packages provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes.
+author:
+  - name: "Qiushi Yan"
+    url: https://qiushi.netlify.com
+    affiliation: Communication University of China
+    affiliation_url: http://www.cuc.edu.cn/
+date: 11-27-2019
+categories:
+  - scales
+bibliography: bib.bib
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 2
+---
+
+One of the most slighted parts of making a ggplot2[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The **scales**[@R-scales] provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.  
+
+## Basics
+
+```{r}
+library(scales)
+demo_continuous(c(0, 100), breaks = breaks_width(20))
+```
+
+ 
+

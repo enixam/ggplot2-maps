@@ -7,15 +7,15 @@
     <description>A collection of visualization tips in R, with a focus on ggplot2 and creating mpas
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>周二, 26 11月 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 Nov 2019 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Using scales package to modify ggplot2 scale</title>
+      <title>Using the scales package</title>
       <dc:creator>Qiushi Yan</dc:creator>
       <link>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</link>
-      <description>The scales packages provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes.</description>
+      <description>01 - Tweaking axis breaks and labels</description>
       <guid>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</guid>
-      <pubDate>周二, 26 11月 2019 00:00:00 +0000</pubDate>
-      <media:content url="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      <media:content url="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/logo.png" medium="image" type="image/png" width="120" height="139"/>
     </item>
   </channel>
 </rss>

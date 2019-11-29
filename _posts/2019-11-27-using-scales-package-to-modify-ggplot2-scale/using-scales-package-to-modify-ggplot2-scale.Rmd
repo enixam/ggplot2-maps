@@ -1,30 +1,520 @@
 ---
-title: "Using scales package to modify ggplot2 scale"
+title: "Using the scales package"
 description: |
-  The scales packages provides the internal scaling infrastructure used by ggplot2, and gives you tools to override the default breaks, labels, transformations and palettes.
+  01 - Tweaking axis breaks and labels
 author:
   - name: "Qiushi Yan"
     url: https://qiushi.netlify.com
     affiliation: Communication University of China
     affiliation_url: http://www.cuc.edu.cn/
 date: 11-27-2019
+preview: logo.png
 categories:
   - scales
 bibliography: bib.bib
 output:
   distill::distill_article:
     toc: true
-    toc_depth: 2
+    toc_depth: 3
 ---
 
-One of the most slighted parts of making a ggplot2[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The **scales**[@R-scales] provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.  
+One of the most slighted parts of making a **ggplot2**[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The **scales**[@R-scales] provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.    
 
-## Basics
+```{r,include=F}
+knitr::opts_chunk$set(echo=T,message=F,warning=F,comment="#>",cache=T)
+```
+
+The **scales** package can be installed from [cran](https://cran.r-project.org/) via: 
+```r
+install.packages("scales")
+```
+or from [GitHub](https://github.com/) if you want the development version:  
+```r
+devtools::install_github("r-lib/scales")
+```
+
 
 ```{r}
 library(scales)
+library(ggplot2)
+```
+<aside>
+If you are just tweaking a few plots, running `library(scales)`, is not recommended because when you type (e.g.) `scales::label_` autocomplete will provide you with a list of labelling functions to job your memory.  
+</aside>
+
+**Note**: This sereis of blogs are based on **scales** 1.1.0.9000.
+
+# Basics
+
+There are 4 helper functions in **scales** used to demonstrate **ggplot2** style scales for specific types of data:  
+
+* `demo_continuous()` and `demo_log10()` for numerical axes 
+* `demo_discrete()` for discrete axes
+* `demo_datetime` for data / time axes  
+
+These functions share common API deisgn, with the first argument specifying the limits of the scale, and `breaks`, `labels` arguments overriding its default apperance.  
+
+```{r}
+demo_continuous(c(1, 10), breaks = breaks_width(2))
+```
+
+
+```{r}
+demo_discrete(c("A", "B", "C"))
+```
+
+
+```{r}
+one_month <- as.POSIXct(c("2020-05-01", "2020-06-01"))
+demo_datetime(one_month, labels = label_date_short())
+```
+
+
+# Axis breaks
+
+
+## `breaks_width()`: equally spaced breaks 
+
+`breaks_width()` is commoly supplied to the `breaks` arguent in scale function for equally spaced breaks, useful for numeric, date, and date-time scales.  
+
+```r
+breaks_width(width, offset = 0)
+```
+**width**: Distance between each break. Either a number, or for date/times, a single string of the form "n unit", e.g. "1 month", "5 days". Unit can be of one "sec", "min", "hour", "day", "week", "month", "year".  
+**offset**: Use if you don't want breaks to start at zero
+
+
+An simple example :  
+
+```{r}
 demo_continuous(c(0, 100), breaks = breaks_width(20))
 ```
 
- 
+The break width doesn't have to be a divisor of the scale span, in those cases limits of the scale will be automatically extented or cut:  
 
+```{r}
+demo_continuous(c(0, 100), breaks = breaks_width(30))
+```
+
+The `offset` argument specifies an new starting point with an "offset" away from the original one:  
+
+```{r}
+demo_continuous(c(0, 100), breaks = breaks_width(10, -4))
+```
+
+
+`breaks_width()` also works on dates and time, now `width` could be a single string of the form "n unit", e.g. "1 month", "5 days", or one of  "sec", "min", "hour", "day", "week", "month", "year".  
+
+```{r}
+one_month <- as.POSIXct(c("2020-05-01", "2020-06-01"))
+demo_datetime(one_month)
+```
+
+
+```{r}
+# better specifying labels as well
+demo_datetime(one_month, breaks = breaks_width("5 days"))
+```
+
+
+```{r}
+demo_datetime(one_month, breaks = breaks_width("10 days"))
+```
+
+
+```{r}
+demo_datetime(one_month, breaks = breaks_width("month"))
+```
+
+
+## `breaks_pretty()`: pretty breaks  
+
+In base R, `pretty()` compute breaks based on a specific sequence, i.e:  
+
+```{r}
+# automatically choosing # of breaks
+pretty(1:30)  
+```
+
+```{r}
+# n giving the desired number of intervals,  result may be more or fewer
+pretty(1:30, n = 3)
+```
+
+`pretty()` could also be used to compute breakpoints for date / time object, since they can be coerced to numeric data:  
+
+```{r}
+pretty(one_month, n = 6)
+as.numeric(one_month)
+```
+
+
+`breaks_pretty()` uses default R break algorithm as implemented in `pretty()`, this is primarily used for datetime axes in ggplot2 ecosystem, and `breaks_extended` should do a slightly better job for numerical scales:  
+
+```{r}
+demo_datetime(one_month)
+```
+
+```{r}
+demo_datetime(one_month, breaks = breaks_pretty(n = 4))
+```
+
+ 
+## `breaks_extended()`: Wilkinson's extended breaks algorithm for numerical axes
+
+
+```{r}
+
+```
+
+For more details, please see @talbot2010extension.  
+
+## `breaks_log()`: breaks for log axes  
+
+```{r}
+demo_log10(c(1, 1e5))
+```
+
+```{r}
+# Request more breaks by setting n
+demo_log10(c(1, 1e5), breaks = breaks_log(n = 6))
+```
+
+# Axis labels   
+
+
+## label numbers  
+
+### decimal format  
+
+Use `label_number()` and its variants to force decimal display of numbers, that is, the antithesis of using scientific notation(e.g., $2 \times 10^6$ in decimal format would be $2,000, 000$). `label_comma()` is a special case that inserts a comma every three digits.  
+
+```r
+label_number(accuracy = NULL, scale = 1, 
+             prefix = "", suffix = "",
+             big.mark = " ", decimal.mark = ".")
+
+label_comma(accuracy = NULL, scale = 1, 
+            prefix = "", suffix = "",
+            big.mark = ",", decimal.mark = ".")
+            
+comma(x, accuracy = NULL, scale = 1, 
+      prefix = "", suffix = "",
+      big.mark = ",", decimal.mark = ".")
+```  
+<aside>
+`comma()` should be replaced with label_comma()  
+</aside>
+
+**accuracy**   	
+A number to round to. Use (e.g.) 0.01 to show 2 decimal places of precision. If NULL, the default, uses a heuristic that should ensure breaks have the minimum number of digits needed to show the difference between adjacent values.  
+
+**scale**   	
+A scaling factor: x will be multiplied by scale before formating. This is useful if the underlying data is very small or very large.  
+
+**prefix, suffix** 	
+Symbols to display before and after value.  
+
+**big.mark** 	
+Character used between every 3 digits to separate thousands.
+
+**decimal.mark**   	
+The character to be used to indicate the numeric decimal point.
+
+
+`label_numebr` is maily used for large number and `label_comma()` for smaller one, but they are exchangeable.
+
+
+
+some examples:  
+
+```{r}
+demo_continuous(c(-1e6, 1e6))
+```
+
+
+
+```{r}
+demo_continuous(c(-1e6, 1e6), labels = label_number())
+```
+
+
+```{r}
+demo_continuous(c(-1e6, 1e6), labels = label_comma())
+```
+
+
+```{r}
+# smaller data
+demo_continuous(c(-1e-6, 1e-6))
+```
+
+```{r}
+demo_continuous(c(-1e-6, 1e-6), labels = label_number())
+```
+
+Use **scale** to rescale very small or large numbers to generate more readable labels:  
+
+```{r}
+demo_continuous(c(0, 1e6), labels = label_number(scale = 1 / 1e3))
+```
+
+```{r}
+demo_continuous(c(0, 1e-6), labels = label_number(scale = 1e6))
+```
+
+Use `prefix` and `suffix` for other types of display:  
+
+```{r}
+demo_continuous(c(32, 40), label = label_number(suffix = "\u00b0C"))
+```
+
+
+```{r}
+demo_continuous(c(0, 100), label = label_number(suffix = " kg"))
+```
+
+
+There is a `label_number_auto()` function that are designed to automatically generated scientific or decimal format labels:  
+
+```{r}
+# scientific notation
+demo_continuous(c(0, 1e8), labels = label_number_auto())
+```
+
+
+```{r}
+# decimal foramt
+demo_continuous(c(0, 1e-3), labels = label_number_auto())
+```
+
+### scientific format 
+
+`label_scientific()` forces numbers to be labelled with scientific notation； 
+
+```r
+label_scientific(digits = 3, scale = 1, prefix = "", suffix = "",
+  decimal.mark = "."
+```  
+
+<aside>
+**digits**  
+Number of digits to show before exponent.
+</aside>
+
+```{r}
+demo_continuous(c(1, 10), labels = label_scientific())
+```
+
+```{r}
+demo_continuous(c(0, 1e6), labels = label_scientific(digits = 1))
+```
+
+
+
+
+### ordinal numbers (1st, 2nd, 3rd, etc.)
+
+Round values to integers and then display as ordinal values (e.g. 1st, 2nd, 3rd). Built-in rules are provided for English, French, and Spanish.  
+
+```r
+label_ordinal(prefix = "", suffix = "", big.mark = " ",
+              rules = ordinal_english(), ...)
+```              
+<aside>
+**rules**   	
+Named list of regular expressions, matched in order. Name gives suffix, and value specifies which numbers to match.
+</aside>
+              
+```{r}
+demo_continuous(c(1, 5), labels = label_ordinal())
+```
+Other languages:   
+
+```{r}
+demo_continuous(c(1, 5), labels = label_ordinal(rules = ordinal_french()))
+```
+
+
+### SI unit prefix  
+
+SI units are any of  the units adopted for international use under the Système International d'Unités, now employed for all scientific and most technical purposes. There are seven fundamental units: the metre, kilogram, second, ampere, kelvin, candela, and mole; and two supplementary units: the radian and the steradian.  
+
+`label_number_si()` automatically scales and labels with the best SI prefix, "K" for values ≥ 10e3, "M" for ≥ 10e6, "B" for ≥ 10e9, and "T" for ≥ 10e12.
+
+```r
+label_number_si(accuracy = 1, unit = NULL)
+```
+<aside>
+**unit**:
+unit used in the original data, optional  
+</aside>
+
+```{r}
+# default si units
+demo_continuous(c(1, 1e9), label = label_number_si())
+```
+
+
+```{r}
+# the original data are measuring weight, in g
+demo_continuous(c(1e3, 1e6), label = label_number_si(unit = "g"))
+```
+
+
+```{r}
+# the original data are measuring length, in m
+demo_continuous(c(1, 1000), label = label_number_si(unit = "m"))
+```
+
+
+### percent format  
+
+`label_percent()` is used to generate percentage-format labels(e.g., 2.5%, 50%, etc.)
+
+```r
+label_percent(accuracy = NULL, scale = 100, prefix = "",
+  suffix = "%", big.mark = " ", decimal.mark = ".", trim = TRUE,
+  ...)
+```
+
+<aside>
+`percent()` and `percent_format()` are retired; please use label_percent() instead.
+</aside>
+
+
+```{r}
+demo_continuous(c(0, 1), labels = label_percent())
+```
+
+When applying `label_percent()`, every numebr are first multiplied by 100 and then assigned a "%" suffix, it's sometimes useful to adjust `scale` to change this behaviour: 
+
+```{r}
+demo_continuous(c(0, 100), labels = label_percent(scale = 1))
+```
+
+### label currencies  
+
+`label_dollar()` format numbers as currency, rounding values to dollars or cents using a convenient heuristic.
+
+```r
+label_dollar(accuracy = NULL, scale = 1, prefix = "$", suffix = "",
+  big.mark = ",", decimal.mark = ".", trim = TRUE,
+  largest_with_cents = 1e+05, negative_parens = FALSE, ...)
+```
+
+<aside>
+**largest_with_cents**  
+values has non-zero fractional component (e.g. cents) and the largest value is less than largest_with_cents which by default is 100,000.
+</aside>
+
+```{r}
+demo_continuous(c(0, 1), labels = label_dollar())
+```
+
+Change `prefix`: 
+
+```{r}
+demo_continuous(c(0, 1), labels = label_dollar(prefix = "USD "))
+```
+
+
+Use `negative_parens = TRUE` for finance style display:  
+
+```{r}
+demo_continuous(c(-1000, 1000), labels = label_dollar(negative_parens = T))
+```
+
+### mathematical annotations  
+
+`label_parse()` produces expression from strings by parsing them; `label_math()` constructs expressions by replacing the pronoun `.x` with each string.  
+
+```r
+label_parse()
+
+label_math(expr = 10^.x, format = force)
+```  
+
+Use `label_parse()` with discrete scales:
+
+```{r}
+demo_discrete(c("alpha", "beta", "gamma", "theta"))
+```
+
+
+```{r}
+demo_discrete(c("alpha", "beta", "gamma", "theta"), labels = label_parse())
+```
+
+Use `label_math()` with continuous scales:  
+
+```{r}
+demo_continuous(c(1, 5), labels = label_math(alpha[.x]))
+```
+
+### label p-values  
+
+`label_pvalue()` is a convenient formmater for p-values, using "**<**" and "**>**" for p-values close to 0 and 1.   
+
+```r
+label_pvalue(accuracy = 0.001, decimal.mark = ".", prefix = NULL,
+  add_p = FALSE)
+```
+
+<aside>
+**add_p** 	
+Add "p=" before the value?
+</aside>
+
+```{r}
+demo_continuous(c(0, 1), labels = label_pvalue())
+```
+
+`accuracy` can be used as significant level:  
+
+```{r}
+demo_continuous(c(0, 1), labels = label_pvalue(accuracy = 0.05, add_p = TRUE))
+```
+
+
+Or provide your own prefixes:  
+
+```{r}
+prefix <- c("p < ", "p = ", "p > ")
+demo_continuous(c(0, 1), labels = label_pvalue(prefix = prefix))
+```
+
+
+## label date / times  
+
+`label_date()` and `label_time()` label date/times using date/time format strings. `label_date_short()` automatically constructs a short format string suffiicient to uniquely identify labels.  
+
+
+```r
+label_date(format = "%Y-%m-%d", tz = "UTC")
+
+label_date_short(format = c("%Y", "%b", "%d", "%H:%M"),
+  sep = "\n")
+
+label_time(format = "%H:%M:%S", tz = "UTC")
+```
+<aside>
+**format**
+a date/time format string using standard POSIX specification. See `strptime()` for details.  
+</aside>  
+
+
+```{r}
+date_range <- function(start, days) {
+  library(lubridate)
+  start <- ymd(start)
+  c(as.POSIXct(start), as.POSIXct(start + days(days)))
+}
+
+library(scales)
+demo_datetime(date_range("20170115", 30))
+```
+
+<aside>
+`demo_datetime()` works with objects of class `POSIXct` only  
+</aside>

@@ -73,7 +73,7 @@ demo_datetime(one_month, labels = label_date_short())
 # Axis breaks
 
 
-## `breaks_width()`: equally spaced breaks 
+## `breaks_width()`: equally spaced breaks {#equal}
 
 `breaks_width()` is commoly supplied to the `breaks` arguent in scale function for equally spaced breaks, useful for numeric, date, and date-time scales.  
 
@@ -148,6 +148,7 @@ pretty(one_month, n = 6)
 as.numeric(one_month)
 ```
 
+Other breakpoints algorithm can be found in the **labeling** package [@R-labeling].  
 
 `breaks_pretty()` uses default R break algorithm as implemented in `pretty()`, this is primarily used for datetime axes in ggplot2 ecosystem, and `breaks_extended` should do a slightly better job for numerical scales:  
 
@@ -163,11 +164,34 @@ demo_datetime(one_month, breaks = breaks_pretty(n = 4))
 ## `breaks_extended()`: Wilkinson's extended breaks algorithm for numerical axes
 
 
-```{r}
-
-```
+`breaks_extended()` uses Wilkinson's extended breaks algorithm as implemented in the **labeling** package. `extended()`, its corresponding function in base R, is an enhanced version of Wilkinson's optimization-based axis labeling approach `wilkinson()`. It performs better than a variety of labeling algorithm on random labeling and breaking tasks, including `pretty()`.  
 
 For more details, please see @talbot2010extension.  
+
+```{r,echo=F,fig.cap="A algorithm comparison plot presented in the paper mentioned above"}
+knitr::include_graphics("comparison.png")
+```
+
+```r
+breaks_extended(n = 5, ...)  
+```
+
+**n**  
+Desired number of breaks. You may get slightly more or fewer breaks that requested.   
+**...**  
+other arguments passed on to `labeling::extended()`
+
+```{r}
+demo_continuous(c(0, 10), breaks = breaks_extended(3))
+```
+
+
+```{r}
+demo_continuous(c(0, 10), breaks = breaks_extended(10))
+```
+
+
+
 
 ## `breaks_log()`: breaks for log axes  
 
@@ -336,7 +360,7 @@ demo_continuous(c(1, 5), labels = label_ordinal(rules = ordinal_french()))
 ```
 
 
-### SI unit prefix  
+### SI unit prefix  {#si}
 
 SI units are any of  the units adopted for international use under the Système International d'Unités, now employed for all scientific and most technical purposes. There are seven fundamental units: the metre, kilogram, second, ampere, kelvin, candela, and mole; and two supplementary units: the radian and the steradian.  
 
@@ -485,6 +509,55 @@ demo_continuous(c(0, 1), labels = label_pvalue(prefix = prefix))
 ```
 
 
+
+### label bytes  
+
+`label_bytes` scale bytes into human friendly units. Can use either SI units (e.g. kB = 1000 bytes) or binary units (e.g. kiB = 1024 bytes).  
+
+```r
+label_bytes(units = "auto_si", accuracy = 1)
+```
+**units** 	
+Unit to use. Should either one of:  
+- "kB", "MB", "GB", "TB", "PB", "EB", "ZB", and "YB" for SI units (base 1000).
+- "kiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", and "YiB" for binary units (base 1024).
+
+<aside>
+**Note**: here the `units` argument are **unit to use**, not **the original unit** (in the case of [`label_number_si()`](#si)), the original unit here are always bytes.  
+</aside>
+
+`auto_si` or `auto_binary` to automatically pick the most approrpiate unit for each value.  
+
+```{r}
+demo_continuous(c(1, 1e6), label = label_bytes("kB"))
+```
+
+
+**accuracy**   	
+A number to round to. Use (e.g.) 0.01 to show 2 decimal places of precision. If NULL, the default, uses a heuristic that should ensure breaks have the minimum number of digits needed to show the difference between adjacent values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## label date / times  
 
 `label_date()` and `label_time()` label date/times using date/time format strings. `label_date_short()` automatically constructs a short format string suffiicient to uniquely identify labels.  
@@ -517,4 +590,66 @@ demo_datetime(date_range("20170115", 30))
 
 <aside>
 `demo_datetime()` works with objects of class `POSIXct` only  
-</aside>
+</aside>  
+
+
+
+```{r}
+demo_datetime(date_range("20170115", 30), labels = label_date())
+```
+
+Use `label_date_short()`, not here we combine what we have learned in [`breaks_width()`](#equal)  
+
+```{r}
+demo_datetime(date_range("20170115", 480), labels = label_date_short(), 
+              breaks = breaks_width("60 days"))
+```
+
+When scaling dates and times, more often than not we have to specify `labels` and `breaks`, so **ggplot2** provides 2 short-hand arguments `date_breaks()` and `date_labels()` 
+
+
+**i.e.**  
+`date_breaks = "2 weeks"` **equivalent to** `breaks = breaks_width("2 weeks")`  
+`date_labels = "%m/%d/%y`" **equivalent to** `labels = label_date(format = "%m/%d/%y")`  
+
+if both are specified, `date_labels` and `date_breaks` override the other two.  
+
+
+```{r}
+demo_datetime(date_range("20170115", 30), date_labels = "%d/%m",
+              date_breaks = "5 days")
+```
+
+mix 2 types of argument:  
+
+```{r}
+demo_datetime(date_range("20170115", 180), 
+              date_breaks = "month", labels = label_date_short())
+```
+
+## label strings  
+
+Use `label_wrap()` to wrap long strings:  
+
+```r
+label_wrap(width)
+```
+**width**: Number of characters per line  
+
+```{r}
+x <- c(
+  "this is a long label",
+  "this is another long label",
+  "this a label this is even longer"
+)
+demo_discrete(x)
+```
+
+
+```{r}
+demo_discrete(x, labels = label_wrap(width = 5))
+```
+
+
+
+

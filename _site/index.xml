@@ -7,14 +7,22 @@
     <description>A collection of visualization tips in R, with a focus on ggplot2 and creating mpas
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 27 Nov 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>周一, 02 12月 2019 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Using the scales package</title>
+      <title>Introduction to {catography}</title>
+      <dc:creator>Qiushi Yan</dc:creator>
+      <link>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography</link>
+      <description>01 Basic mapping</description>
+      <guid>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography</guid>
+      <pubDate>周一, 02 12月 2019 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Using {scales}</title>
       <dc:creator>Qiushi Yan</dc:creator>
       <link>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</link>
       <description>01 - Tweaking axis breaks and labels</description>
       <guid>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</guid>
-      <pubDate>Wed, 27 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>周二, 26 11月 2019 00:00:00 +0000</pubDate>
       <media:content url="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/logo.png" medium="image" type="image/png" width="120" height="139"/>
     </item>
   </channel>

@@ -1,5 +1,5 @@
 ---
-title: "Using the scales package"
+title: "Using {scales}"
 description: |
   01 - Tweaking axis breaks and labels
 author:
@@ -10,6 +10,7 @@ author:
 date: 11-27-2019
 preview: logo.png
 categories:
+  - ggplot2
   - scales
 bibliography: bib.bib
 output:
@@ -18,7 +19,7 @@ output:
     toc_depth: 3
 ---
 
-One of the most slighted parts of making a **ggplot2**[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The **scales**[@R-scales] provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.    
+One of the most slighted parts of making a **ggplot2**[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The {**scales**}[@R-scales] package provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.    
 
 ```{r,include=F}
 knitr::opts_chunk$set(echo=T,message=F,warning=F,comment="#>",cache=T)

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
   <meta name="generator" content="distill" />
-  <link rel="alternate" type="application/rss+xml" href="https://bookdown.org/Maxine/ggplot2-maps/index.xml" />
+  <link rel="alternate" type="application/rss+xml" href="https://qiushi.rbind.io/ggplot2-maps/index.xml" />
 
   <style type="text/css">
   /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
@@ -20,21 +20,22 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-  <title>R Visualization Tips</title>
+  <title>GGPLOT2 Tips and Maps in R: R Visualization Tips</title>
   
   
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
   
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R Visualization Tips"/>
+  <meta property="og:title" content="GGPLOT2 Tips and Maps in R: R Visualization Tips"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="R Visualization Tips"/>
+  <meta property="og:site_name" content="GGPLOT2 Tips and Maps in R"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R Visualization Tips"/>
+  <meta property="twitter:title" content="GGPLOT2 Tips and Maps in R: R Visualization Tips"/>
   
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
@@ -1261,8 +1262,44 @@
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <style type="text/css">
+  .distill-site-nav {
+    font-family: Merriweather;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #455a64;
+    font-size: 15px;
+    font-weight: 300;
+  }
+  
+  .distill-site-nav a {
+    font-family: Merriweather;
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .distill-site-nav a:hover {
+    color: white;
+  }
+  
+  .distill-site-header {
+  }
+  
+  .distill-site-footer {
+  }
+  
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+  
+  d-article {
+    font-family: Merriweather;
+  }
+  </style>
   <!--/radix_placeholder_site_in_header-->
 
+  <link rel="stylesheet" href="style.css" type="text/css"/>
 
 </head>
 
@@ -1279,7 +1316,10 @@
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="index.html" class="title">R Visualization Tips</a>
+<a class="logo" href="https://qiushi.rbind.io">
+<img src="images/logo.jpg"/>
+</a>
+<a href="index.html" class="title">GGPLOT2 Tips and Maps in R</a>
 </div>
 <div class="nav-right">
 <a href="index.html">Posts</a>
@@ -1614,6 +1654,19 @@ function init_posts_list() {
 <div class="posts-container posts-with-sidebar posts-apply-limit l-screen-inset">
 <div class="posts-list">
 <h1 class="posts-list-caption">R Visualization Tips</h1>
+<a href="posts/2020-03-06-a-spoonful-of-ggplot2-330/" class="post-preview">
+<script class="post-metadata" type="text/json">{"categories":["ggplot2"]}</script>
+<div class="metadata">
+<div class="publishedDate">March 5, 2020</div>
+</div>
+<div class="thumbnail">
+<img data-src="posts/2020-03-06-a-spoonful-of-ggplot2-330/preview.png"/>
+</div>
+<div class="description">
+<h2>A spoonful of ggplot2 3.3.0</h2>
+<p>Embracing an exciting update overflowed with new features</p>
+</div>
+</a>
 <a href="posts/2019-12-02-introduction-to-catography/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["mapping - cartography"]}</script>
 <div class="metadata">
@@ -1630,13 +1683,13 @@ function init_posts_list() {
 <a href="posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/" class="post-preview">
 <script class="post-metadata" type="text/json">{"categories":["ggplot2","scales"]}</script>
 <div class="metadata">
-<div class="publishedDate">Nov. 26, 2019</div>
+<div class="publishedDate">Nov. 27, 2019</div>
 </div>
 <div class="thumbnail">
 <img data-src="posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/logo.png"/>
 </div>
 <div class="description">
-<h2>Using {scales}</h2>
+<h2>Using the {scales} pacakge</h2>
 <p>01 - Tweaking axis breaks and labels</p>
 </div>
 </a>
@@ -1647,7 +1700,7 @@ function init_posts_list() {
 <ul>
 <li>
 <a href="#ggplot2">ggplot2</a>
-<span class="category-count">(1)</span>
+<span class="category-count">(2)</span>
 </li>
 <li>
 <a href="#mapping_-_cartography">mapping - cartography</a>
@@ -1664,7 +1717,7 @@ function init_posts_list() {
 <a href="#">More articles &raquo;</a>
 </div>
 </div>
-<!--/radix_placeholder_article_listing-->
+<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
 <h1>R Visualization Tips</h1>
@@ -1686,8 +1739,10 @@ function init_posts_list() {
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/enixam/ggplot2-maps/issues/new">create an issue</a> on the source repository.</p>
 <h3 id="reuse">Reuse</h3>
-<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/enixam/ggplot2-maps">https://github.com/enixam/ggplot2-maps</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 </div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->

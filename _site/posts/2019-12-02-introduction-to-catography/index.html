@@ -19,12 +19,13 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-<title>R Visualization Tips: Introduction to {catography}</title>
+<title>GGPLOT2 Tips and Maps in R: Introduction to {catography}</title>
 
 <meta property="description" itemprop="description" content="01 Basic mapping"/>
 
-<link rel="canonical" href="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
+<link rel="canonical" href="https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
 <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+<link rel="icon" type="image/jpeg" href="../../images/logo.jpg"/>
 
 <!--  https://schema.org/Article -->
 <meta property="article:published" itemprop="datePublished" content="2019-12-02"/>
@@ -32,22 +33,22 @@
 <meta name="article:author" content="Qiushi Yan"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="R Visualization Tips: Introduction to {catography}"/>
+<meta property="og:title" content="GGPLOT2 Tips and Maps in R: Introduction to {catography}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:description" content="01 Basic mapping"/>
-<meta property="og:url" content="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
+<meta property="og:url" content="https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:site_name" content="R Visualization Tips"/>
+<meta property="og:site_name" content="GGPLOT2 Tips and Maps in R"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="R Visualization Tips: Introduction to {catography}"/>
+<meta property="twitter:title" content="GGPLOT2 Tips and Maps in R: Introduction to {catography}"/>
 <meta property="twitter:description" content="01 Basic mapping"/>
-<meta property="twitter:url" content="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
+<meta property="twitter:url" content="https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
 
 <!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
-<meta name="citation_title" content="R Visualization Tips: Introduction to {catography}"/>
-<meta name="citation_fulltext_html_url" content="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
+<meta name="citation_title" content="GGPLOT2 Tips and Maps in R: Introduction to {catography}"/>
+<meta name="citation_fulltext_html_url" content="https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"/>
 <meta name="citation_fulltext_world_readable" content=""/>
 <meta name="citation_online_date" content="2019/12/02"/>
 <meta name="citation_publication_date" content="2019/12/02"/>
@@ -56,7 +57,7 @@
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","categories","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY"]},{"type":"character","attributes":{},"value":["Introduction to {catography}"]},{"type":"character","attributes":{},"value":["01 Basic mapping"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Qiushi Yan"]},{"type":"character","attributes":{},"value":["https://qiushi.netlify.com"]}]}]},{"type":"character","attributes":{},"value":["12-02-2019"]},{"type":"character","attributes":{},"value":["mapping - cartography"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]}]}]},{"type":"character","attributes":{},"value":["https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"]},{"type":"character","attributes":{},"value":["https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","categories","output","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY"]},{"type":"character","attributes":{},"value":["Introduction to {catography}"]},{"type":"character","attributes":{},"value":["01 Basic mapping"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Qiushi Yan"]},{"type":"character","attributes":{},"value":["https://qiushi.netlify.com"]}]}]},{"type":"character","attributes":{},"value":["12-02-2019"]},{"type":"character","attributes":{},"value":["mapping - cartography"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]}]}]},{"type":"character","attributes":{},"value":["https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"]},{"type":"character","attributes":{},"value":["https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/"]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1281,6 +1282,41 @@ document.addEventListener('DOMContentLoaded', function() {
   <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+<style type="text/css">
+.distill-site-nav {
+  font-family: Merriweather;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #455a64;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  font-family: Merriweather;
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+.distill-site-header {
+}
+
+.distill-site-footer {
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+d-article {
+  font-family: Merriweather;
+}
+</style>
 <!--/radix_placeholder_site_in_header-->
 
 
@@ -1299,7 +1335,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="../../index.html" class="title">R Visualization Tips</a>
+<a class="logo" href="https://qiushi.rbind.io">
+<img src="../../images/logo.jpg"/>
+</a>
+<a href="../../index.html" class="title">GGPLOT2 Tips and Maps in R</a>
 </div>
 <div class="nav-right">
 <a href="../../index.html">Posts</a>
@@ -1340,16 +1379,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom">
+  <h3 id="updates-and-corrections">Corrections</h3>
+  <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/enixam/ggplot2-maps/issues/new">create an issue</a> on the source repository.</p>
   <h3 id="reuse">Reuse</h3>
-  <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+  <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/enixam/ggplot2-maps">https://github.com/enixam/ggplot2-maps</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
   <h3 id="citation">Citation</h3>
   <p>For attribution, please cite this work as</p>
-  <pre class="citation-appendix short">Yan (2019, Dec. 2). R Visualization Tips: Introduction to {catography}. Retrieved from https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/</pre>
+  <pre class="citation-appendix short">Yan (2019, Dec. 2). GGPLOT2 Tips and Maps in R: Introduction to {catography}. Retrieved from https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/</pre>
   <p>BibTeX citation</p>
   <pre class="citation-appendix long">@misc{yan2019introduction,
   author = {Yan, Qiushi},
-  title = {R Visualization Tips: Introduction to {catography}},
-  url = {https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography/},
+  title = {GGPLOT2 Tips and Maps in R: Introduction to {catography}},
+  url = {https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography/},
   year = {2019}
 }</pre>
 </div>

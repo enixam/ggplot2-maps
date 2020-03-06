@@ -1,22 +1,17 @@
 ---
-title: "About this website"
+title: "About this site"
 date: "2019-11-29"
 author:
   - name: "Qiushi Yan"
-    url: https://qiushi.netlify.com
+    url: https://qiushi.rbind.io
     affiliation: Communication University of China
     affiliation_url: http://www.cuc.edu.cn/
-bibliography: distill.bib
+bibliography: references.bib
 ---
 
-Hello !
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+Welcome! This is a site dedicated to tricks in `ggplot2`[R-ggplot2] and creating beautiful maps with R, based on my own learning experience. This site is built on top of the `distill`[@R-distill] package, more information of which can be found [here](https://rstudio.github.io/distill/)
 
 
-Many thanks:[@allaire2018distill] 
 
 
 

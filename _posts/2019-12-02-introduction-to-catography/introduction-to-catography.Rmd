@@ -7,8 +7,9 @@ author:
     url: https://qiushi.netlify.com
 date: 12-02-2019
 categories:
-  - mapping
+  - maps
   - cartography
+bibliography: references.bib  
 output:
   distill::distill_article:
     self_contained: false

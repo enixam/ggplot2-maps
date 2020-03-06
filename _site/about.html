@@ -19,10 +19,11 @@
  <!--/radix_placeholder_import_source-->
 
   <!--radix_placeholder_meta_tags-->
-  <title>R Visualization Tips: About this website</title>
+  <title>GGPLOT2 Tips and Maps in R: About me</title>
   
   
   <link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg"/>
   
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2019-11-29"/>
@@ -30,14 +31,14 @@
   <meta name="article:author" content="Qiushi Yan"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="R Visualization Tips: About this website"/>
+  <meta property="og:title" content="GGPLOT2 Tips and Maps in R: About me"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="R Visualization Tips"/>
+  <meta property="og:site_name" content="GGPLOT2 Tips and Maps in R"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="R Visualization Tips: About this website"/>
+  <meta property="twitter:title" content="GGPLOT2 Tips and Maps in R: About me"/>
   
   <!--/radix_placeholder_meta_tags-->
   
@@ -45,7 +46,7 @@
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","author","bibliography"]}},"value":[{"type":"character","attributes":{},"value":["About this website"]},{"type":"character","attributes":{},"value":["2019-11-29"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Qiushi Yan"]},{"type":"character","attributes":{},"value":["https://qiushi.netlify.com"]},{"type":"character","attributes":{},"value":["Communication University of China"]},{"type":"character","attributes":{},"value":["http://www.cuc.edu.cn/"]}]}]},{"type":"character","attributes":{},"value":["distill.bib"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","date","author","bibliography"]}},"value":[{"type":"character","attributes":{},"value":["About me"]},{"type":"character","attributes":{},"value":["2019-11-29"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Qiushi Yan"]},{"type":"character","attributes":{},"value":["https://qiushi.rbind.io"]},{"type":"character","attributes":{},"value":["Communication University of China"]},{"type":"character","attributes":{},"value":["http://www.cuc.edu.cn/"]}]}]},{"type":"character","attributes":{},"value":["distill.bib"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -1266,8 +1267,44 @@
   <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
+  <style type="text/css">
+  .distill-site-nav {
+    font-family: Merriweather;
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #455a64;
+    font-size: 15px;
+    font-weight: 300;
+  }
+  
+  .distill-site-nav a {
+    font-family: Merriweather;
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .distill-site-nav a:hover {
+    color: white;
+  }
+  
+  .distill-site-header {
+  }
+  
+  .distill-site-footer {
+  }
+  
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+  
+  d-article {
+    font-family: Merriweather;
+  }
+  </style>
   <!--/radix_placeholder_site_in_header-->
 
+  <link rel="stylesheet" href="style.css" type="text/css"/>
 
 </head>
 
@@ -1276,7 +1313,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"About this website","authors":[{"author":"Qiushi Yan","authorURL":"https://qiushi.netlify.com","affiliation":"Communication University of China","affiliationURL":"http://www.cuc.edu.cn/"}],"publishedDate":"2019-11-29T00:00:00.000+08:00","citationText":"Yan, 2019"}
+{"title":"About me","authors":[{"author":"Qiushi Yan","authorURL":"https://qiushi.rbind.io","affiliation":"Communication University of China","affiliationURL":"http://www.cuc.edu.cn/"}],"publishedDate":"2019-11-29T00:00:00.000+08:00","citationText":"Yan, 2019"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1284,7 +1321,10 @@
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="index.html" class="title">R Visualization Tips</a>
+<a class="logo" href="https://qiushi.rbind.io">
+<img src="images/logo.jpg"/>
+</a>
+<a href="index.html" class="title">GGPLOT2 Tips and Maps in R</a>
 </div>
 <div class="nav-right">
 <a href="index.html">Posts</a>
@@ -1301,19 +1341,19 @@
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>About this website</h1>
+<h1>About me</h1>
 
 </div>
 
 <div class="d-byline">
-  Qiushi Yan <a href="https://qiushi.netlify.com" class="uri">https://qiushi.netlify.com</a> (Communication University of China)<a href="http://www.cuc.edu.cn/" class="uri">http://www.cuc.edu.cn/</a>
+  Qiushi Yan <a href="https://qiushi.rbind.io" class="uri">https://qiushi.rbind.io</a> (Communication University of China)<a href="http://www.cuc.edu.cn/" class="uri">http://www.cuc.edu.cn/</a>
   
 <br/>2019-11-29
 </div>
 
 <div class="d-article">
-<p>Hello !</p>
-<p>Many thanks:<span class="citation" data-cites="allaire2018distill">(Allaire, Iannone, and Xie <a href="#ref-allaire2018distill" role="doc-biblioref">2018</a>)</span></p>
+<p>Welcome! This is a blog dedicated to tricks in <code>ggplot2</code> and creating beautiful maps with R, based on my own learning experience. This site is built on top of the <code>distill</code><span class="citation" data-cites="allaire2018distill">(Allaire, Iannone, and Xie <a href="#ref-allaire2018distill" role="doc-biblioref">2018</a>)</span> package, more information of which can be found <a href="https://rstudio.github.io/distill/">here</a></p>
+<p>Many thanks:</p>
 <h2 id="acknowledgements" class="appendix">Acknowledgements</h2>
 <p>Distill for R Markdown builds on the work of many individuals and projects. Shan Carter, Ludwig Schubert, and Christopher Olah created the Distill web framework. John MacFarlane created the Pandoc universal markup converter. Davide Cervone and Volker Sorge created the MathJax library for rendering mathematical notation on the web. Mike Bostock created the D3 library for producing dynamic, interactive data visualizations for the web. We are grateful for the spirit of generosity that moved these individuals to create high-quality open source software for the benefit of all.</p>
 <div id="refs" class="references" role="doc-bibliography">
@@ -1333,8 +1373,10 @@
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
 <div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/enixam/ggplot2-maps/issues/new">create an issue</a> on the source repository.</p>
 <h3 id="reuse">Reuse</h3>
-<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+<p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/enixam/ggplot2-maps">https://github.com/enixam/ggplot2-maps</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
 </div>
 <script id="distill-bibliography" type="text/bibtex">
 @misc{allaire2018distill,

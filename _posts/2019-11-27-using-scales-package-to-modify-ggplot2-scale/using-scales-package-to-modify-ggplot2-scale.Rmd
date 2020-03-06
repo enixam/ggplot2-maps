@@ -1,5 +1,5 @@
 ---
-title: "Using {scales}"
+title: "Using the {scales} pacakge"
 description: |
   01 - Tweaking axis breaks and labels
 author:
@@ -12,24 +12,30 @@ preview: logo.png
 categories:
   - ggplot2
   - scales
-bibliography: bib.bib
+bibliography: references.bib
 output:
   distill::distill_article:
     toc: true
     toc_depth: 3
 ---
 
-One of the most slighted parts of making a **ggplot2**[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The {**scales**}[@R-scales] package provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.    
+One of the most slighted parts of making a ggplot2[@R-ggplot2] visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with `scale_color_` and `scale_fill_` to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The `scales`[@R-scales] package provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.    
 
-```{r,include=F}
-knitr::opts_chunk$set(echo=T,message=F,warning=F,comment="#>",cache=T)
+```{r, include = F}
+knitr::opts_chunk$set(echo = T, 
+                      message = F,
+                      warning = F,
+                      comment = "#>",
+                      cache = TRUE)
 ```
 
-The **scales** package can be installed from [cran](https://cran.r-project.org/) via: 
+The `scales` package can be installed from [cran](https://cran.r-project.org/) via: 
+
 ```r
 install.packages("scales")
 ```
 or from [GitHub](https://github.com/) if you want the development version:  
+
 ```r
 devtools::install_github("r-lib/scales")
 ```
@@ -40,14 +46,14 @@ library(scales)
 library(ggplot2)
 ```
 <aside>
-If you are just tweaking a few plots, running `library(scales)`, is not recommended because when you type (e.g.) `scales::label_` autocomplete will provide you with a list of labelling functions to job your memory.  
+If you are just tweaking a few plots, running `library(scales)`, is not recommended because when you type (e.g.) `scales::label_` autocomplete will provide you with a list of labelling functions
 </aside>
 
-**Note**: This sereis of blogs are based on **scales** 1.1.0.9000.
+**Note**: This sereis of blogs are based on `scales` 1.1.0.9000.
 
 # Basics
 
-There are 4 helper functions in **scales** used to demonstrate **ggplot2** style scales for specific types of data:  
+There are 4 helper functions in `scales` used to demonstrate `ggplot2` style scales for specific types of data:  
 
 * `demo_continuous()` and `demo_log10()` for numerical axes 
 * `demo_discrete()` for discrete axes
@@ -85,7 +91,7 @@ breaks_width(width, offset = 0)
 **offset**: Use if you don't want breaks to start at zero
 
 
-An simple example :  
+An example :  
 
 ```{r}
 demo_continuous(c(0, 100), breaks = breaks_width(20))

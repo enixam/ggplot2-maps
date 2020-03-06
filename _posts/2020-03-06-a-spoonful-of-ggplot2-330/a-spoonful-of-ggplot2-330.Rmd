@@ -1,0 +1,30 @@
+---
+title: "A spoonful of ggplot2 3.3.0"
+description: |
+  Embracing an exciting update overflowed with new features  
+author:
+  - name: "Qiushi Yan"
+    url: https://qiushi.rbind.io
+    affiliation: Communication University of China
+    affiliation_url: http://www.cuc.edu.cn/
+date: 03-06-2020
+preview: preview.png
+categories:
+  - ggplot2
+bibliography: references.bib
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+---
+
+# Embracing `ggplot2` 3.3.0
+
+
+
+```{r, message = F}
+library(tidyverse)
+packageVersion("ggplot2")
+```
+
+

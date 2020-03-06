@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>R Visualization Tips</title>
-    <link>https://bookdown.org/Maxine/ggplot2-maps/</link>
-    <atom:link href="https://bookdown.org/Maxine/ggplot2-maps/index.xml" rel="self" type="application/rss+xml"/>
+    <title>GGPLOT2 Tips and Maps in R</title>
+    <link>https://qiushi.rbind.io/ggplot2-maps/</link>
+    <atom:link href="https://qiushi.rbind.io/ggplot2-maps/index.xml" rel="self" type="application/rss+xml"/>
     <description>A collection of visualization tips in R, with a focus on ggplot2 and creating mpas
 </description>
+    <image>
+      <title>GGPLOT2 Tips and Maps in R</title>
+      <url>https://qiushi.rbind.io/ggplot2-maps/images/logo.jpg</url>
+      <link>https://qiushi.rbind.io/ggplot2-maps/</link>
+    </image>
     <generator>Distill</generator>
-    <lastBuildDate>周一, 02 12月 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>周四, 05 3月 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>A spoonful of ggplot2 3.3.0</title>
+      <dc:creator>Qiushi Yan</dc:creator>
+      <link>https://qiushi.rbind.io/ggplot2-maps/posts/2020-03-06-a-spoonful-of-ggplot2-330</link>
+      <description>Embracing an exciting update overflowed with new features</description>
+      <guid>https://qiushi.rbind.io/ggplot2-maps/posts/2020-03-06-a-spoonful-of-ggplot2-330</guid>
+      <pubDate>周四, 05 3月 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://qiushi.rbind.io/ggplot2-maps/posts/2020-03-06-a-spoonful-of-ggplot2-330/preview.png" medium="image" type="image/png" width="1344" height="960"/>
+    </item>
     <item>
       <title>Introduction to {catography}</title>
       <dc:creator>Qiushi Yan</dc:creator>
-      <link>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography</link>
+      <link>https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography</link>
       <description>01 Basic mapping</description>
-      <guid>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-12-02-introduction-to-catography</guid>
+      <guid>https://qiushi.rbind.io/ggplot2-maps/posts/2019-12-02-introduction-to-catography</guid>
       <pubDate>周一, 02 12月 2019 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Using {scales}</title>
+      <title>Using the {scales} pacakge</title>
       <dc:creator>Qiushi Yan</dc:creator>
-      <link>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</link>
+      <link>https://qiushi.rbind.io/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</link>
       <description>01 - Tweaking axis breaks and labels</description>
-      <guid>https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</guid>
-      <pubDate>周二, 26 11月 2019 00:00:00 +0000</pubDate>
-      <media:content url="https://bookdown.org/Maxine/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/logo.png" medium="image" type="image/png" width="120" height="139"/>
+      <guid>https://qiushi.rbind.io/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale</guid>
+      <pubDate>周三, 27 11月 2019 00:00:00 +0000</pubDate>
+      <media:content url="https://qiushi.rbind.io/ggplot2-maps/posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/logo.png" medium="image" type="image/png" width="120" height="139"/>
     </item>
   </channel>
 </rss>

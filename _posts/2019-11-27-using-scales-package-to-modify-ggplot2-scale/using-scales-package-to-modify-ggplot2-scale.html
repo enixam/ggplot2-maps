@@ -1986,8 +1986,8 @@ distill-header .nav a {
 </ul>
 </nav>
 <hr class="d-toc-separator" />
-<p>One of the most slighted parts of making a ggplot2<span class="citation" data-cites="R-ggplot2">(Wickham et al. <a href="#ref-R-ggplot2" role="doc-biblioref">2019</a>)</span> visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with <code>scale_color_</code> and <code>scale_fill_</code> to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The {scales}<span class="citation" data-cites="R-scales">(Wickham and Seidel <a href="#ref-R-scales" role="doc-biblioref">2019</a>)</span> package provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.</p>
-<p>The <strong>scales</strong> package can be installed from <a href="https://cran.r-project.org/">cran</a> via:</p>
+<p>One of the most slighted parts of making a ggplot2<span class="citation" data-cites="R-ggplot2">(Wickham et al. <a href="#ref-R-ggplot2" role="doc-biblioref">2019</a>)</span> visualization is scaling, and its inverse, guiding. This is the case partly because in ggplot2 scales and guides are automatically generated, and generated pretty well. Perhaps frequentyly we work with <code>scale_color_</code> and <code>scale_fill_</code> to change palettes used, yet aside from that, we have few experience tweaking scales, adjusting breaks and labels, modifying axes and legends or so. The <code>scales</code><span class="citation" data-cites="R-scales">(Wickham and Seidel <a href="#ref-R-scales" role="doc-biblioref">2019</a>)</span> package provides a internal scaling infrastructure used by ggplot2, and a set of consistent tools to override the default breaks, labels, transformations and palettes.</p>
+<p>The <code>scales</code> package can be installed from <a href="https://cran.r-project.org/">cran</a> via:</p>
 <pre class="r"><code>
 install.packages(&quot;scales&quot;)</code></pre>
 <p>or from <a href="https://github.com/">GitHub</a> if you want the development version:</p>
@@ -1999,11 +1999,11 @@ library(scales)
 library(ggplot2)</code></pre>
 </div>
 <aside>
-If you are just tweaking a few plots, running <code>library(scales)</code>, is not recommended because when you type (e.g.) <code>scales::label_</code> autocomplete will provide you with a list of labelling functions to job your memory.
+If you are just tweaking a few plots, running <code>library(scales)</code>, is not recommended because when you type (e.g.) <code>scales::label_</code> autocomplete will provide you with a list of labelling functions
 </aside>
-<p><strong>Note</strong>: This sereis of blogs are based on <strong>scales</strong> 1.1.0.9000.</p>
+<p><strong>Note</strong>: This sereis of blogs are based on <code>scales</code> 1.1.0.9000.</p>
 <h1 id="basics">Basics</h1>
-<p>There are 4 helper functions in <strong>scales</strong> used to demonstrate <strong>ggplot2</strong> style scales for specific types of data:</p>
+<p>There are 4 helper functions in <code>scales</code> used to demonstrate <code>ggplot2</code> style scales for specific types of data:</p>
 <ul>
 <li><code>demo_continuous()</code> and <code>demo_log10()</code> for numerical axes</li>
 <li><code>demo_discrete()</code> for discrete axes</li>
@@ -2039,7 +2039,7 @@ demo_datetime(one_month, labels = label_date_short())</code></pre>
 breaks_width(width, offset = 0)</code></pre>
 <p><strong>width</strong>: Distance between each break. Either a number, or for date/times, a single string of the form “n unit”, e.g. “1 month”, “5 days”. Unit can be of one “sec”, “min”, “hour”, “day”, “week”, “month”, “year”.<br />
 <strong>offset</strong>: Use if you don’t want breaks to start at zero</p>
-<p>An simple example :</p>
+<p>An example :</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 demo_continuous(c(0, 100), breaks = breaks_width(20))</code></pre>

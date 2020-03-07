@@ -14,7 +14,7 @@
       "ggplot2"
     ],
     "preview": "posts/2020-03-06-a-spoonful-of-ggplot2-330/preview.png",
-    "last_modified": "2020-03-06T23:44:43+08:00",
+    "last_modified": "2020-03-07T21:33:05+08:00",
     "preview_width": 1344,
     "preview_height": 960
   },
@@ -51,7 +51,7 @@
       "scales"
     ],
     "preview": "posts/2019-11-27-using-scales-package-to-modify-ggplot2-scale/logo.png",
-    "last_modified": "2020-03-06T22:46:57+08:00",
+    "last_modified": "2020-03-07T21:38:45+08:00",
     "preview_width": 120,
     "preview_height": 139
   }

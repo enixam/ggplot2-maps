@@ -31,3 +31,8 @@
 d-article {
   font-family: Merriweather;
 }
+
+.posts-list .post-preview .thumbnail img {
+  width: 100%; 
+  display: block;
+}

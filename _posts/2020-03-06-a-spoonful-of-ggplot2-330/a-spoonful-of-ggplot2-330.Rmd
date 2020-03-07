@@ -20,18 +20,16 @@ output:
 
 # Embracing `ggplot2` 3.3.0    
 
-https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/  
-
-https://ggplot2.tidyverse.org/news/index.html#ggplot2-3-3-0
-
-https://education.rstudio.com/blog/2019/10/a-summer-of-rstudio-and-ggplot2/
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE,
                       warning = FALSE,
                       comment = "#>",
-                      collapse = TRUE)
+                      collapse = TRUE,
+                      fig.width = 7,
+                      fig.asp = 0.618,
+                      cache = TRUE)
 ```
 
 
@@ -91,20 +89,256 @@ p +
   scale_color_binned(type = "viridis")
 ```
 
+`scale_*_binned()` is mostly used for demonstration purposes. In practice, however, I find the this feature most useful when using a complimentary "binned" version of some commonly-used scales (mostly `color` and `fill`)
+
+* `scale_*_gradient()` $\stackrel{binned}{\longrightarrow}$ `scale_*_steps()`  
+
+* `scale_*_brewer()` $\stackrel{binned}{\longrightarrow}$ `scale_*fermenter()`  
+
+* `scale_*_viridis_c`, `scale_viridis_d()` $\stackrel{binned}{\longrightarrow}$ `scale_*_viridis_b()`  
 
 
-Some commonly-used continuous (mostly color and fill) now has a complimentary binned version. 
+
+
+
 
 ```{r}
-dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 d <- ggplot(faithfuld) +
-  geom_tile(aes(waiting, eruptions, fill = density))
+  geom_tile(aes(waiting, eruptions, fill = density)) + 
+  theme(legend.position = "bottom")
 
 wrap_plots(
   d,
-  d + scale_fill_distiller(palette = "Set1"),
-  d + scale_fill_fermenter(palette = "Set1")
+  d + scale_fill_distiller(palette = "Set1"),  # extend brewer to continuous scale
+  d + scale_fill_fermenter(palette = "Set1")   # binned version of brewer
 )
 ```
+
+
+```{r}
+wrap_plots(
+  d + scale_fill_gradient2(low = "#0019FFFF", mid = "#E6FF00FF", high = "#FFE0B3FF", 
+                           midpoint = 0.01),
+  d + scale_fill_steps2(low = "#0019FFFF", mid = "#E6FF00FF", high = "#FFE0B3FF", 
+                           midpoint = 0.01),
+  d + scale_fill_gradientn(colours = terrain.colors(10)),
+  d + scale_fill_stepsn(colors =  terrain.colors(10))
+)
+```
+
+
+```{r}
+wrap_plots(
+  d + scale_fill_viridis_c(option = "C"),
+  d + scale_fill_viridis_b(option = "C")
+)
+```
+
+## More control over aesthetic evalutaion  
+
+
+Most aesthetics are mapped from variables directly found in the data. Sometimes, however, you want to delay the mapping until later in the rendering process. ggplot2 has three stages of the data that you can map aesthetics from. The default is to map at the beginning, using the layer data provided by the user. The second stage is after the data has been transformed by the layer stat. The third and last stage is after the data has been transformed and mapped by the plot scales. The most common example of mapping from stat transformed data is the height of bars in `geom_histogram()`: the height does not come from a variable in the underlying data, but is instead mapped to the generated `count` variable computed by `stat_bin()`. This is previously done by the `..var..` notation or `stat()`, which indicate that the aesthetic should be evaluated after the stat has been computed.
+
+An example of mapping from scaled data could be to use a desaturated version of the stroke colour for fill. If you want to map directly from the layer data you should not do anything special. In order to map from stat transformed data you should use the `after_stat()` function to flag that evaluation of the aesthetic mapping should be postponed until after stat transformation. Similarly, you should use `after_scale()` to flag evaluation of mapping for after data has been scaled. If you want to map the same aesthetic multiple times, e.g. map `x` to a data column for the stat, but remap it for the geom, you can use the `stage()` function to collect multiple mappings.
+
+`after_stat()` is often used pick a different computed metric than the default:
+
+```{r}
+# Scale tallest bin to 1
+ggplot(mpg, aes(displ)) +
+  geom_histogram(aes(y = after_stat(count / max(count))))
+
+# display density instead of count
+ggplot(mpg, aes(displ)) +
+  geom_density(adjust = 0.5) + 
+  geom_histogram(aes(y = after_stat(density))) # equal to y = ..density..
+```
+
+And you can use `after_scale()` to assign fill as a variant of the scaled color. Here `color` is created by the scaling system that only becomes availbale for referencing after scaling.  
+
+```{r}
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot(aes(color = class, fill = after_scale(alpha(color, 0.1))))
+```
+
+Furthermore, it is now possible to perform multiple mapping for the same aesthetic, using the `stage()` function.  This can be used to e.g. set `alpha` on the stroke of a polygon (the default is to only apply alpha to fill for polygon-type geoms). We `start` by the `drv` column directly comes from the data, then `drv` is scaled and a `color` variable is created, last `color` was transformed in transparency and actually displayed in the plot.
+
+```{r}
+ggplot(mpg) + 
+  geom_bar(
+    aes(
+      x = drv, 
+      colour = stage(start = drv, after_scale = alpha(color, 0.5))
+    ), 
+    fill = NA, size = 4
+  )
+
+# compare to  
+ggplot(mpg) + 
+  geom_bar(
+    aes(
+      x = drv, 
+      color = drv),
+    fill = NA, size = 4, alpha = 0.5
+  )
+```
+
+
+
+
+## Bi-directional geoms and stats  
+
+Certain geoms in `ggplot2` have assumed directions. For example, `geom_boxplot()` and `geom_bar()` would assume a categorical variable on the x-axis and a numerical one on the y-axis. If we want to display this type of plot in the opposition direction (i.e., exchange x and y axis), we would have to use `coord_flip()`. 
+
+```{r}
+ggplot(mpg) + 
+  geom_bar(aes(manufacturer), orientation = "x") + 
+  coord_flip()
+```
+
+
+The new release update all the directional stats and geoms to work in both directions. The direction of the stat/geom is deduced from the aesthetic mapping, so it should simply behave as expected. The example above can thus be rewritten to:  
+
+```{r}
+ggplot(mpg) + 
+  geom_bar(aes(manufacturer), orientation = "x")
+```
+
+The direction determination is not only looking at which aesthetics are mapped, but also what they are mapped to, so most layers can be determined without ambiguity. In the presence of ambiguity, it is conservative and will default to the standard orientation. If you want to overwrite the direction, either because it fails to detect it, or because the geom/stat is ambiguous by nature, it can be set directly with the `orientation` argument, which can be either `"x"` or `"y"`. The value gives the axis that the geom should run along, `"x"` being the default orientation you would expect for the geom.  
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_smooth(orientation = "y")
+```
+
+
+## Miscellaneous  
+
+### More control over title position
+
+Themes have gained two new parameters, `plot.title.position` and `plot.caption.position`, that can be used to customize how plot title/subtitle and plot caption are positioned relative to the overall plot ("plot" or "panel"), the position of subtitle in inherited from `plot.title.position`
+
+```{r}
+dsamp <- sample_n(diamonds, 1000)
+
+wrap_plots(
+  ggplot(dsamp) + 
+    geom_point(aes(carat, price, color = cut)) + 
+    labs(title = "My plot title", 
+         subtitle = "My subtitle",
+         caption = "Source: Me"),
+   ggplot(dsamp) + 
+    geom_point(aes(carat, price, color = cut)) + 
+    labs(title = "My plot title", 
+         subtitle = "My subtitle",
+         caption = "Source: Me") + 
+    theme(plot.title.position = "plot",
+          plot.caption.position = "plot")
+)
+```
+
+
+
+### Better contour calculations  
+
+A recurring request has been to allow for filled contours. This has been problematic in the past because `stat_density_2d()` only calculated the outer contour and didn’t cut out any inner holes or next level contours. This meant that if either the fill was partly transparent, or if the level contained any holes, the output would not be a true representation of the data.  
+
+```{r}
+volcano_long <- tibble(
+  x = as.vector(col(volcano)),
+  y = as.vector(row(volcano)),
+  z = as.vector(volcano)
+)
+
+volcano_long
+
+ggplot(volcano_long, aes(x, y, z = z)) + 
+  geom_polygon(aes(fill = after_stat(level)), alpha = 0.5, stat = "contour") 
+```
+
+
+There is so much wrong going on here that we won’t go through it. In any case, this is all in the past because `ggplot2` has moved on to using the new `isoband` package and now provides a geom `geom_contour_filled()` for filled contours specifically:  
+
+```{r}
+ggplot(volcano_long, aes(x, y, z = z)) + 
+  geom_contour_filled(alpha = 0.5)
+```
+
+We see that all the issues above have been fixed. Local minima are now represented, and the alpha level is now a true representation of the scale since levels don’t overlap and accumulate opacity. Further, each level is correctly denoted as a range.  
+
+One thing you might wonder about is the choice of legend. The filled contours are basically showing binned data, and we have just introduced a new binning scale - can this be merged? Yes and no. The binning has to happen at the stat level, since the contour calculation require un-binned data. So binning at the scale level is not possible. But the new bin legends have been written to understand the values created by the filled contour stat (as well as those returned by `cut()`) and can thus be used to show properly formatted discrete scales. So we are not actually using a binned scale, but modifying the fill guide so it looks like one:  
+
+```{r, error = TRUE}
+ggplot(volcano_long, aes(x, y, z = z)) + 
+  geom_contour_filled(aes(fill = stat(level))) + 
+  guides(fill = guide_colorsteps(barheight = unit(10, "cm")))
+```
+
+
+### Specify the number of breaks
+
+`scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument guiding the number of automatic generated breaks, this is equavalent to supply `breaks` with a function.  
+
+```{r}
+wrap_plots(
+  d + scale_x_continuous(n.breaks = 3),
+  d + scale_y_continuous(n.breaks = 10)
+)
+```
+
+### Changes in `geom_area()`, `geom_ribbon()` and `geom_density`
+
+`geom_area()` and `geom_density()` now draw the upper lines only in the same case by default, `geom_ribbon()` to only stroke the upper and lower bounds, instead of drawing a closed polygon. If you want old-style full stroking, use `outline.type = "full"`
+
+```{r}
+huron <- tibble(year = 1875:1972, level = as.vector(LakeHuron))
+
+ggplot(huron, aes(year)) + 
+  geom_area(aes(y = level), fill = "grey", colour = "black")
+
+ggplot(huron, aes(year)) + 
+  geom_ribbon(aes(ymin = level - 10, ymax = level + 10), fill = "grey", colour = "black")
+
+ggplot(dsamp, aes(carat)) +
+  geom_density(fill = "grey")
+```
+
+
+### `NA` limits in `coord_cartesian()`
+
+Another common source of confusion in `ggplot2` is the difference between `scale_(x|y)_continuous(limits = ...)` and `coord_cartesian((x|y)lim = ...)`. When setting scale limits (this includes `xlim()` and `ylim()`), data is filtered by default, meaning values outside this range magically turn into NA and disappear; when setting the coordinate system limits, the data are still exist, but data outside the (expanded) limits are not shown.
+
+```{r}
+p <- dsamp %>% ggplot() + geom_boxplot(aes(cut, price))
+
+wrap_plots(
+  p + scale_y_continuous(limits = c(0, 10000)),
+  p + coord_cartesian(ylim = c(0, 10000))
+)
+```
+
+In this example, using scale limits (on the left) leads to displaying spurious information about where the min and max of the data are. When this issue comes up, the response is usually that the user should use `coord_cartesian(ylim = ...)` (as shown on the right) instead of `scale_y_continuous(limits = ...)`. **Scale limits have this awesome feature where you can pass `NA` as one or more of the limits to refer to the minimum or maximum of the data**, but this previously wasn’t possible for coordinate system limits. Now it is! It’s particularly useful with facets where `scales = "free"`:  
+
+```{r}
+# set NA in coordinate system
+p + coord_cartesian(ylim = c(NA, NA))
+
+ggplot(diamonds, aes(color, price)) +
+  geom_boxplot() +
+  facet_wrap(vars(cut), scales = "free_y") +
+  coord_cartesian(ylim = c(0, NA))
+```
+
+
+
+# References 
+
+https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/  
+
+https://ggplot2.tidyverse.org/news/index.html#ggplot2-3-3-0
+
+https://education.rstudio.com/blog/2019/10/a-summer-of-rstudio-and-ggplot2/
+
 
 

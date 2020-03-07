@@ -18,13 +18,93 @@ output:
     toc_depth: 3
 ---
 
-# Embracing `ggplot2` 3.3.0
+# Embracing `ggplot2` 3.3.0    
+
+https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/  
+
+https://ggplot2.tidyverse.org/news/index.html#ggplot2-3-3-0
+
+https://education.rstudio.com/blog/2019/10/a-summer-of-rstudio-and-ggplot2/
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE,
+                      warning = FALSE,
+                      comment = "#>",
+                      collapse = TRUE)
+```
 
 
-
-```{r, message = F}
+```{r}
 library(tidyverse)
+library(patchwork)
 packageVersion("ggplot2")
+```
+
+
+## New guide function: `guide_axis()`   
+
+As is the way with many ggplot2 users, guide functions are most represented by `guide_legend()` and `guide_colorbar`, which are related to some non-positional aesthetics. However, axis is essentialy a guide in itself, mapping positions back to the value of a continuous / discrete variable. While, at a high level, axes and legends are equivalent (they are both guides used for scales). All of this is contained in the new `guide_axis()` function that works equivalently to e.g. `guide_legend()`.   
+
+```{r}
+# plot with overlapping text
+p <- ggplot(mpg) +
+  geom_bar(aes(x = manufacturer)) + 
+  theme(axis.text.x = element_text(size = 11))
+
+# Overlapping labels
+p
+
+# axis guides can be customized in the scale_* functions or
+# using guides()
+p + scale_x_discrete(guide = guide_axis(n.dodge = 2))
+p + guides(x = guide_axis(angle = 90))
+```
+In the previous plot, `n.dodge` is used to determine the number of rows (for vertical axes) or columns (for horizontal axes) that should be used to render the labels.
+
+
+```{r}
+# Or to remove overlapping labels
+p + 
+  scale_x_discrete(guide = guide_axis(check.overlap = TRUE))
+```
+
+Other arguments in `guide_axis()` include `title`, `order`(	
+Used to determine the order of the guides (left-to-right, top-to-bottom), if more than one guide must be drawn at the same location.) and `position`(Where this guide should be drawn: one of top, bottom, left, or right)  
+
+```{r}
+p + 
+  guides(x = guide_axis(title = "My x axis", n.dodge = 2),
+         y = guide_axis(title = "",
+                        position = "right"))
+```
+
+## New scale: `scale_*_binned()`  
+
+While ggplot2 has a lot of different scales, it has only ever had two different scale types: *continuous* and *discrete*. This all changes with this release, as a new binning scale type has been added. A binning scale takes continuous data and makes it discrete by assigning each data point to a bin. It thus exists somewhere between the two existing scale types and e.g. allows continuous data to be used with discrete palettes. Being a fundamental scale type, it is available to all aesthetics, both positional and otherwise:  
+
+```{r}
+p <- ggplot(mpg) + 
+  geom_point(aes(displ, cty, size = hwy, colour = hwy))
+
+p + 
+  scale_color_binned(type = "viridis")
+```
+
+
+
+Some commonly-used continuous (mostly color and fill) now has a complimentary binned version. 
+
+```{r}
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+d <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density))
+
+wrap_plots(
+  d,
+  d + scale_fill_distiller(palette = "Set1"),
+  d + scale_fill_fermenter(palette = "Set1")
+)
 ```
 
 

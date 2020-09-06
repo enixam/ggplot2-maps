@@ -278,7 +278,7 @@ ggplot(volcano_long, aes(x, y, z = z)) +
 
 ### Specify the number of breaks
 
-`scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument guiding the number of automatic generated breaks, this is equavalent to supply `breaks` with a function.  
+`scale_x_continuous()` and `scale_y_continuous()` gain an `n.breaks` argument guiding the number of automatic generated breaks, this is equavalent to supply `breaks` with a function.  
 
 ```{r}
 wrap_plots(
